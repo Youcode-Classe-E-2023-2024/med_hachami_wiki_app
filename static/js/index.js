@@ -45,3 +45,80 @@ function searchWiki(event){
 }
 
 fetchAndStoreWikiData();
+//fetch categories and injected
+async function getCategories() {
+
+    const response = await fetch(`${apiurl}` + 'Main/allCategories' ,{
+      method: 'GET',
+      headers: {
+          'Authorization': token, 
+          'Content-Type': 'application/json'
+      }
+    
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+   return data;
+}
+async function fetchCategories() {
+    let displayByCategory = document.getElementById("displayByCategory");
+
+    try {
+      const data = await getCategories();
+      const categories  = data;
+      
+      const categoryItem = categories.map((category)=>{
+        return(
+            `
+            <option value="${category.id}" >${category.name}</option>
+            `
+        )
+    })
+    displayByCategory.innerHTML += categoryItem
+    
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+//fetch tags and injected
+  async function getTags() {
+
+    const response = await fetch(`${apiurl}` + 'Main/allTags' ,{
+      method: 'GET',
+      headers: {
+          'Authorization': token, 
+          'Content-Type': 'application/json'
+      }
+    
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+   return data;
+}
+async function fetchTags() {
+    let displayByTag = document.getElementById("displayByTag");
+
+    try {
+      const data = await getTags();
+      const tags  = data;
+      
+      const tagItem = tags.map((tag)=>{
+        return(
+            `
+            <option value="${tag.id}" >${tag.name}</option>
+            `
+        )
+    })
+    displayByTag.innerHTML += tagItem
+    
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  fetchCategories();
+  fetchTags();
