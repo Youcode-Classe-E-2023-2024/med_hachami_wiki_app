@@ -130,6 +130,60 @@ async function fetchAndStoreWikiData() {
   }
 }
 
+
+
+async function fetchAndDispalyByCategory(){
+  let displayOption = document.getElementById("displayByCategory");
+  let category = displayOption.value;
+  if(category === 'all'){
+    return;
+  }
+  console.log(`${apiurl}` + 'Main/wikiByCategory/'+category );
+    const response = await fetch(`${apiurl}` + 'Main/wikiByCategory/'+category ,{
+      method: 'GET',
+      headers: {
+          'Authorization': token, 
+          'Content-Type': 'application/json'
+      }
+    
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    
+    displayWiki(data);
+  
+  
+
+}
+
+async function fetchAndDispalyByTag(){
+  let displayOption = document.getElementById("displayByTag");
+  let tag = displayOption.value;
+  if(tag === 'all'){
+    return;
+  }
+  
+    const response = await fetch(`${apiurl}` + 'Main/wikiByTag/'+tag ,{
+      method: 'GET',
+      headers: {
+          'Authorization': token, 
+          'Content-Type': 'application/json'
+      }
+    
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    
+    displayWiki(data);
+
+}
+
+
+
 function displayWiki(wikis) {
   const ticketContainer = document.getElementById("ticketContainer");
       ticketContainer.innerHTML = "";
@@ -168,4 +222,3 @@ function displayWiki(wikis) {
       })
       ticketContainer.innerHTML= ticketItem
 }
-
