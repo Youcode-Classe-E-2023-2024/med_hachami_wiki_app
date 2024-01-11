@@ -43,7 +43,27 @@
         <div class="layout-page">
             <!-- Navbar -->
             <div id="navbar"></div>
-            <div class="content-wrapper">
+            <div class="content-wrapper wiki-container">
+                <div class="filter-container ">
+                    <div class="select">
+                        <select name="displayByTag" id="displayByCategory" onchange="fetchAndDispalyByCategory()" >
+                            <option value="all" selected>All</option>
+                            
+                            
+                            
+                        </select>
+                       
+                    </div>
+                    <div class="select">
+                        <select name="displayByTag" id="displayByTag" onchange="fetchAndDispalyByTag()" >
+                            <option value="all" selected>All</option>
+                            
+                            
+                            
+                        </select>
+                       
+                    </div>
+                </div>
                 
                 <div class="container-3xl  d-flex container-p-y justify-content-center flex-wrap gap-4" id="ticketContainer">
                     
