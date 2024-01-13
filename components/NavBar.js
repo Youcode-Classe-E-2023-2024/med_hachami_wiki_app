@@ -44,44 +44,37 @@ function generateNavbar() {
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle  hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" >
             <div class="avatar avatar-online">
-              <img src="${imgStore}${img}" alt class="w-px-40 h-auto rounded-circle" />
+              <img src="${!localStorage.getItem("token") ? './static/assets/img/avatars/profile.png':imgStore+img}" alt class="w-px-40 h-auto rounded-circle" />
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a class="dropdown-item" href="#">
-                <div class="d-flex">
-                  <div class="flex-shrink-0 me-3">
-                    <div class="avatar avatar-online">
-                      <img src="${imgStore}${img}" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </div>
-                  <div class="flex-grow-1">
-                    <span class="fw-medium d-block">John Doe</span>
-                    <small class="text-muted">Admin</small>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <div class="dropdown-divider"></div>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bx bx-user me-2"></i>
-                <span class="align-middle">My Profile</span>
-              </a>
-            </li>
             
             <li>
               <div class="dropdown-divider"></div>
             </li>
+            
+            
             <li>
-              <a class="dropdown-item" href="javascript:void(0);">
+              <div class="dropdown-divider"></div>
+            </li>
+            ${localStorage.getItem("token") ? 
+              `<li>
+              <a class="dropdown-item cursor-pointer" >
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle" onclick="logOut()" >Log Out</span>
               </a>
+            </li>`
+            :
+            `
+            <li>
+              <a class="dropdown-item cursor-pointer" href="login.html">
+                
+                <span class="align-middle"  >Sign In</span>
+              </a>
             </li>
+            `
+            }
+            
           </ul>
         </li>
         <!--/ User -->
@@ -102,3 +95,12 @@ function navigateTo(wikiId){
   window.location.href = "WikiDetails.html?wikiId="+wikiId;
 }
 
+function logOut(){
+  console.log('aa');
+  localStorage.removeItem('token');
+  localStorage.removeItem('id');
+  localStorage.removeItem('fullName');
+  localStorage.removeItem('email');
+  localStorage.removeItem('image');
+  window.location.href = '/login.html';
+}
