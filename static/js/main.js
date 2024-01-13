@@ -15,18 +15,15 @@ function redirectToLogin() {
 }
 
 
-if (!hasToken() || isTokenExpired()) {
-    redirectToLogin();
+
+function notLoggedIn(){
+    if (!hasToken() || isTokenExpired()) {
+        redirectToLogin();
+    }
+
 }
 
-function logOut(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
-    localStorage.removeItem('fullName');
-    localStorage.removeItem('email');
-    localStorage.removeItem('image');
-    window.location.href = '/login.html';
-}
+
 
 function decodeJWT(token) {
     
@@ -36,3 +33,5 @@ function decodeJWT(token) {
     
     return decodedPayload;
 }
+
+notLoggedIn();
